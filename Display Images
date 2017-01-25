@@ -11,6 +11,7 @@ public class Display {
 		gui.setVisible(true);
 		gui.setTitle("biggiebheese");
 		gui.imgLoader();
+		gui.pack();
 	}
 
 }
