@@ -1,0 +1,58 @@
+package images;
+
+import javax.swing.JFrame;
+
+public class Display {
+
+	public static void main(String[] args) {
+		//THIS LOADS BIGGIE BHEESE
+		Loader gui = new Loader();
+		gui.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		gui.setVisible(true);
+		gui.setTitle("biggiebheese");
+		gui.imgLoader();
+	}
+
+}
+
+DIFFERENT CLASS
+---------------
+//Import all these
+import java.awt.FlowLayout;
+import javax.swing.ImageIcon;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+
+//Loading images like this needs to extend JFrame
+public class Loader extends JFrame{
+	
+	//Create Image variables (If you want to add more do it again but increment num
+	private ImageIcon image1;
+	private JLabel label1;
+	
+	/* private ImageIcon image2;
+	 * private JLabel label2;
+	 */
+	
+	// Method which actually displays the image. 
+	void imgLoader(){
+		
+		setLayout(new FlowLayout());
+		//download.jpg should probably be more specific lol
+		
+		/*IMPORTANT*
+		 * the picture should be in the source folder.
+		 */
+		
+		image1 = new ImageIcon(getClass().getResource("download.jpg"));
+		//labels are how you refer to the image
+		label1 = new JLabel(image1);
+		add(label1);
+		
+		/* image2 = new ImageIcon(getClass().getResource("additonalName.jpg"));\
+		 * label2 = new JLabel(image2);
+		 * add(label2);
+		 */
+		
+	}
+}
