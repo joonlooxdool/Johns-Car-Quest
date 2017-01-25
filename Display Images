@@ -15,8 +15,8 @@ public class Display {
 
 }
 
-DIFFERENT CLASS
----------------
+D I F F E R E N T  C L A S S
+----------------------------
 //Import all these
 import java.awt.FlowLayout;
 import javax.swing.ImageIcon;
