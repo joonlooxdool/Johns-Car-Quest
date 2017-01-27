@@ -3,12 +3,12 @@ import javax.swing.*;
 public class main {
 public static void main(String[] args){
 		JFrame testFrame = new JFrame("Main Menu");
-		//buttons
+		//creating the buttons
 		JButton okButton = new JButton();
 		okButton.setText("Start");
 		okButton.setToolTipText("StartGame");
 		okButton.setSize(100,100);
-		//adding a button
+		//adding button to JFrame
 		testFrame.add(okButton);
 		//frame attributes
 		testFrame.setSize(1000,800);//width and height
