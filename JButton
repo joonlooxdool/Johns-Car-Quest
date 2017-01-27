@@ -1,18 +1,55 @@
 package mainmenu;
+import java.awt.Color;
+import java.awt.GridLayout;
 import javax.swing.*;
+import javax.swing.border.TitledBorder;
 public class main {
 public static void main(String[] args){
 		JFrame testFrame = new JFrame("Main Menu");
-		//creating the buttons
+		
+			//buttons
 		JButton okButton = new JButton();
 		okButton.setText("Start");
 		okButton.setToolTipText("StartGame");
 		okButton.setSize(100,100);
-		//adding button to JFrame
-		testFrame.add(okButton);
-		//frame attributes
+		
+			//making the second button
+		JButton okButton2 = new JButton();
+		okButton2.setText("Exit");
+		okButton2.setToolTipText("exitGame");
+		okButton2.setSize(100,100);
+		
+			//creating JPanel
+		JPanel panel1 = new JPanel();//Creates a JPanel object
+		panel1.setBorder(new TitledBorder("Test Panel"));
+		panel1.setLayout(new GridLayout(1,2));
+		
+			//Adding Buttons to panel1
+		panel1.add(okButton);
+		panel1.add(okButton2);
+		
+			//New Button
+		JButton okButton3 = new JButton("Options");
+		okButton3.setToolTipText("Options");
+		okButton3.setForeground(Color.blue);
+		
+			//Creating panel 2
+		JPanel panel2 = new JPanel();//Creates a JPanel
+		panel2.setBorder(new TitledBorder("Config"));//created title for border
+		panel2.setLayout(new GridLayout(1,3));//Created and defines layout (rows, columns)
+		
+		
+			//adding buttons to panel 2
+		panel2.add(okButton3);
+		
+			//adding panels
+		testFrame.add(panel1);
+		testFrame.add(panel2);
+		
+			//frame attributes
 		testFrame.setSize(1000,800);//width and height
 		testFrame.setLocationRelativeTo(null);//null so it centers it to the middle
+		testFrame.setLayout(new GridLayout(2,5));
 		testFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);//exits on closing of frame
 		testFrame.setVisible(true);//makes from visible
 	}
