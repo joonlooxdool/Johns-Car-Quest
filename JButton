@@ -1,0 +1,19 @@
+package mainmenu;
+import javax.swing.*;
+public class main {
+public static void main(String[] args){
+		JFrame testFrame = new JFrame("Main Menu");
+		//buttons
+		JButton okButton = new JButton();
+		okButton.setText("Start");
+		okButton.setToolTipText("StartGame");
+		okButton.setSize(100,100);
+		//adding a button
+		testFrame.add(okButton);
+		//frame attributes
+		testFrame.setSize(1000,800);//width and height
+		testFrame.setLocationRelativeTo(null);//null so it centers it to the middle
+		testFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);//exits on closing of frame
+		testFrame.setVisible(true);//makes from visible
+	}
+}
