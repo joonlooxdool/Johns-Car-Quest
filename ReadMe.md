@@ -9,7 +9,8 @@ Iori- Displaying Sprites in Java and help ethan figure out in game mechanics. We
 Jon - create code for drawing, Github managing
 
 Week 3 1.31.17
-Traeton- Designing title screen
+Traeton- Designing title screen graphics
 Ethan- Optimizing title screen mechanics (lots of things at same time etc)
 Brent- Audio
 Jon/Iori- Character prototyping (mechanics, not so much visuals atm)
+Figured out artistic direction, got screen working completely, designed logo for title screen and game
