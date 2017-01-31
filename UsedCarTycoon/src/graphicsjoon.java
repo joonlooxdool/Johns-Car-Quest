@@ -1,18 +1,25 @@
 
-import java.awt.Component;
+package images;
 
-import javax.swing.*; 
+import javax.swing.JFrame;
 
-public class graphicsjoon {
+public class Display {
 
-	public static void main(String[] args){ 
+	public static void main(String[] args) {
 		
-		JFrame f = new JFrame ("JoonLooxDool"); 
-		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		joonlooxdool j = new joonlooxdool(); 
-		f.add(j);
-		f.setSize(800, 300);
-		f.setVisible(true);;
+		Loader gui = new Loader();
+		gui.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		gui.setVisible(true);
+		gui.setTitle("biggiebheese");
+		//gui.imgLoader();
+		//gui.pack();
+		gui.setSize(1920, 1080);
+		
+		Paint G = new Paint();
+		gui.add(G);
+		G.paintComponent(null);
+		
+		
+	}
 
 }
-} 
