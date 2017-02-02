@@ -14,3 +14,5 @@ Ethan- Optimizing title screen mechanics (lots of things at same time etc)
 Brent- Audio
 Jon/Iori- Character prototyping (mechanics, not so much visuals atm)
 Figured out artistic direction, got screen working completely, designed logo for title screen and game
+
+DAY 4- REMOVED HEROBRINE XD
