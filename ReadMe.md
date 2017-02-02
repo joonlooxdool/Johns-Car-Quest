@@ -15,4 +15,9 @@ Brent- Audio
 Jon/Iori- Character prototyping (mechanics, not so much visuals atm)
 Figured out artistic direction, got screen working completely, designed logo for title screen and game
 
-DAY 4- REMOVED HEROBRINE XD
+2.2.17
+Traeton- More graphics
+Iori- Sprite sheets, graphics planning
+Ethan- helped brent
+Jon- Absent
+Brent- Audio!
