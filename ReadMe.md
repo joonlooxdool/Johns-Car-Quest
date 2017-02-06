@@ -21,3 +21,12 @@ Iori- Sprite sheets, graphics planning
 Ethan- helped brent
 Jon- Absent
 Brent- Audio!
+
+Week 4
+2.6.17
+Ethan- Unifying code
+Brent- Audio
+Iori- Sprite sheets
+Jon- Sprites
+Traeton- Coding main menu
+
