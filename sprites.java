@@ -1,152 +1,126 @@
-package joncode;
+package Spritemove;
 
-
+import java.awt.BorderLayout;
+import java.awt.image.DataBufferInt;
+import java.awt.Canvas;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Graphics;
-import java.awt.Image;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
+import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
-import java.io.File;
+import java.awt.image.DataBufferInt;
 
-import javax.imageio.ImageIO;
-import javax.imageio.stream.ImageInputStream;
 import javax.swing.JFrame;
 
-public class sprites extends JFrame implements Runnable{
-
-private static final long serialVersionUID = 1L;
-int WIDTH = 1024;
-int HEIGHT = 576;
-int SCALE = 1;
-int heroX,heroY;
-int x,y;
-
-public static void main(String[] args) {
-    new sprites();
-}
-
-public sprites(){
-
-    setSize(WIDTH * SCALE, HEIGHT * SCALE);
-    setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    setLocationRelativeTo(null);
-    setResizable(false);
-    setTitle("joon");
-    setVisible(true);
-
-    addKeyListener(new Input());
-
-    heroX=getWidth()/2-16;
-    heroY=getHeight()/2-16;
-
-    try {
-        while(true){
-            update();
-            Thread.sleep(20);
-        }
-    } catch (InterruptedException e) {
-        e.printStackTrace();
-    }
-
-}
-
-public void paint(Graphics g){
-
-    Image offScreen = createImage(getWidth(),getHeight());
-    draw(offScreen.getGraphics());
-
-    g.drawImage(offScreen,0,0,null);
-}
-
-public void draw(Graphics g){
-    g.setColor(Color.GRAY);
-    g.fillRect(0,0,getWidth(),getHeight());
-
-    g.setColor(new Color(255,228,181));
-    g.fillOval(heroX, heroY, 32, 100);
-
-    g.setColor(Color.WHITE);
-    g.fillOval(heroX+6,heroY+8,8,8);
-    g.fillOval(heroX+18,heroY+8,8,8);
-
-    g.setColor(Color.BLACK);
-    g.fillOval(heroX+8, heroY+10, 4, 4);
-    g.fillOval(heroX+20, heroY+10, 4, 4);
-
-    g.fillRect(heroX+6, heroY+22, 20, 2);
-
-
-    repaint();
-
-}
-
-private void ellipse(int heroX2, int heroY2, int i, int j) {
-	// TODO Auto-generated method stub
+public class Game extends Canvas implements Runnable{
 	
+	private static final long serialVersionUID=1L;
+	
+	public static final int WIDTH = 160;
+	public static final int HEIGHT = WIDTH/12*9;
+	public static final int SCALE = 3;
+	public static final String NAME="Game";
+	
+	private JFrame frame;	
+	
+	public boolean running=false;
+	public int tickCount = 0;
+	
+	private BufferedImage image = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
+	private int[] pixels = ((DataBufferInt)image.getRaster().getDataBuffer()).getData();
+	
+
+
+	private BufferStrategy bs;	public Game(){
+		setMinimumSize(new Dimension(WIDTH*SCALE,HEIGHT*SCALE));
+		setMaximumSize(new Dimension(WIDTH*SCALE,HEIGHT*SCALE));
+		setPreferredSize(new Dimension(WIDTH*SCALE,HEIGHT*SCALE));
+		
+		frame = new JFrame(NAME);
+		
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setLayout(new BorderLayout());
+		
+		frame.add(this, BorderLayout.CENTER);
+		frame.pack();
+		
+		frame.setResizable(false);
+		frame.setLocationRelativeTo(null);
+		frame.setVisible(true);
+	}
+	
+	private synchronized void start() {
+		running = true;
+		new Thread(this).start();
+	}
+	
+	private synchronized void stop() {
+		running = false;
+	}
+	
+	public void run(){
+		long lastTime = System.nanoTime();
+		double nsPerTick = 1000000000D/60D;
+		
+		int ticks = 0;
+		int frames = 0;
+		
+		long lastTimer = System.currentTimeMillis();
+		double delta = 0;
+		
+		while(running){
+			long now = System.nanoTime();
+			delta += (now-lastTime)/nsPerTick;
+			lastTime = now;
+			boolean shouldRender = true;
+			while(delta>=1){
+				ticks++;
+				tick();
+				delta-=1;
+				shouldRender = true;
+			}
+			try {
+				Thread.sleep(2);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+			if(shouldRender){
+			frames++;
+			render();
+			}
+			if(System.currentTimeMillis()-lastTimer>=1000){
+				lastTimer += 1000;
+				System.out.println(ticks +" ticks, "+frames + " frames");
+				frames = 0;
+				ticks = 0;
+			}
+		}
+	}
+	
+	public void tick(){
+		tickCount++;
+		
+		for(int i=0;i<pixels.length;i++){
+			pixels[i]=i*tickCount;
+		}
+	}
+	
+	public void render(){
+		BufferStrategy bs = getBufferStrategy();
+		if(bs==null){
+			createBufferStrategy(3);
+			return;
+		}
+		
+		Graphics g =bs.getDrawGraphics();
+		
+		g.drawImage(image, 0, 0, getWidth(), getHeight(),null);
+		
+		g.dispose();
+		bs.show();
+	}
+	
+	public static void main(String[] args){
+		new Game().start();
+	}
 }
-
-public void setX(int x){
-    this.x=x;
-}
-public void setY(int y){
-    this.y=y;
-}
-public void update(){
-    heroX+=x;
-    heroY+=y;
-}
-
-public class Input implements KeyListener{
-
-    public void keyPressed(KeyEvent e) {
-        int keyCode=e.getKeyCode();
-
-        if(keyCode==KeyEvent.VK_W){
-            setY(-5);
-        }
-        if(keyCode==KeyEvent.VK_A){
-            setX(-5);
-        }
-        if(keyCode==KeyEvent.VK_S){
-            setY(5);
-        }
-        if(keyCode==KeyEvent.VK_D){
-            setX(5);
-        }
-        if(keyCode==KeyEvent.VK_ESCAPE){
-            stop();
-        }
-    }
-
-    public void keyReleased(KeyEvent e) {
-        int keyCode=e.getKeyCode();
-
-        if(keyCode==KeyEvent.VK_W){
-            setY(0);
-        }
-        if(keyCode==KeyEvent.VK_A){
-            setX(0);
-        }
-        if(keyCode==KeyEvent.VK_S){
-            setY(0);
-        }
-        if(keyCode==KeyEvent.VK_D){
-            setX(0);
-        }
-    }
-
-    public void keyTyped(KeyEvent e) {
-
-    }
-
-}
-
-public void run() {
-    new Thread().start();
-}
-public void stop(){
-    System.exit(0);
-}
-}
-
