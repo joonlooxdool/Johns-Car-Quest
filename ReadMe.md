@@ -30,3 +30,8 @@ Iori- Sprite sheets
 Jon- Sprites
 Traeton- Coding main menu
 
+2.8.17
+Ethan/Jon/Traeton- We're cleaning up our code for displaying things- that's been the roadblock
+Iori- Sprites
+Brent- Audio
+
