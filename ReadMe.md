@@ -35,3 +35,8 @@ Ethan/Jon/Traeton- We're cleaning up our code for displaying things- that's been
 Iori- Sprites
 Brent- Audio
 
+2.10.17
+Iori- Sprite sheets
+Brent- Audio
+Ethan/Jon/Traeton/Hudson - Our code is a disaster
+
