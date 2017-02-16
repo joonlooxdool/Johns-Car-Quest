@@ -40,3 +40,6 @@ Iori- Sprite sheets
 Brent- Audio
 Ethan/Jon/Traeton/Hudson - Our code is a disaster
 
+2.16.17
+Iori/Jon/Brent- AUdio research
+Traeton/Ethan- Fixed graphics!
