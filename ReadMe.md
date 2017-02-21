@@ -43,3 +43,9 @@ Ethan/Jon/Traeton/Hudson - Our code is a disaster
 2.16.17
 Iori/Jon/Brent- AUdio research
 Traeton/Ethan- Fixed graphics!
+
+2.21.17
+
+Brent/Jon- Logic
+Iori- Characters in sprite sheets, designed start button
+Traeton/Ethan- Finally got images working
