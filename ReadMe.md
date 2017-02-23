@@ -49,3 +49,4 @@ Traeton/Ethan- Fixed graphics!
 Brent/Jon- Logic
 Iori- Characters in sprite sheets, designed start button
 Traeton/Ethan- Finally got images working
+RESEARCH GETSUBIMAGE (part of bufferedimage) allows you to draw certain parts of an image.
