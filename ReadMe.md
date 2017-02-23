@@ -45,7 +45,12 @@ Iori/Jon/Brent- AUdio research
 Traeton/Ethan- Fixed graphics!
 
 2.21.17
-
 Brent/Jon- Logic
 Iori- Characters in sprite sheets, designed start button
 Traeton/Ethan- Finally got images working
+
+2.22.17
+Jon- Work on eulogy for Frankie. Create Frankie 2 
+Traeton- 
+Ethan- Freelancer 
+Iori- sprite sheets
