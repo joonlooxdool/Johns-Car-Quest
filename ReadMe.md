@@ -50,3 +50,9 @@ Brent/Jon- Logic
 Iori- Characters in sprite sheets, designed start button
 Traeton/Ethan- Finally got images working
 RESEARCH GETSUBIMAGE (part of bufferedimage) allows you to draw certain parts of an image.
+
+3.14.17
+
+Brent/Jon- Audio
+Ethan- Code helping
+Traeton/Iori- Started to implement button code, testing two methods- using a class that's maleable or using just jbuttons and modifying htem
