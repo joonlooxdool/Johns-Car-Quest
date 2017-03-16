@@ -55,4 +55,9 @@ RESEARCH GETSUBIMAGE (part of bufferedimage) allows you to draw certain parts of
 
 Brent/Jon- Audio
 Ethan- Code helping
-Traeton/Iori- Started to implement button code, testing two methods- using a class that's maleable or using just jbuttons and modifying htem
+Traeton/Iori- Started to implement button code, testing two methods- using a class that's maleable or using just jbuttons and modifying them
+
+3.16.17
+
+Brent/Jon/Ethan- Got audio working and rudimentary buttons (not using jbutton though)
+Iori/Traeton- Changed direction for buttons, going to print images and then define them as clickable areas
