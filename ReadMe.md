@@ -61,3 +61,6 @@ Traeton/Iori- Started to implement button code, testing two methods- using a cla
 
 Brent/Jon/Ethan- Got audio working and rudimentary buttons (not using jbutton though)
 Iori/Traeton- Changed direction for buttons, going to print images and then define them as clickable areas
+
+3.22.17
+Iori/Traeton/Hudson- Display multiple images (fixed file read errors), defined enum spaces, got buttons work with click event
