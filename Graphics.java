@@ -4,30 +4,36 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.Image;
-import java.awt.Paint;
 import java.awt.TexturePaint;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.awt.image.BufferedImage;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 
 public class Graphics implements Runnable, KeyListener, WindowListener, MouseListener{
-	public final String TITLE = "Bused Bar Bycoon";
-	public final Dimension SIZE = new Dimension(600, 950);
+	public static enum GAMESTATE{TITLESCREEN, CRAIGSLIST, FRONTDESK, GARAGE};
+	public final String TITLE = "Used Car Tycoon";
+	public final Dimension SIZE = new Dimension(1920, 1080);
 	public JFrame frame;
 	private boolean isRunning, isDone;
 	private Image imgBuffer;
 	private TexturePaint jdm, bmw, gtr, supercar;
 	private int side = 50;
+	int widthFix = (SIZE.width/2);
+	int heightFix = (SIZE.height/2);
 	//private int PigI;
 	//private int PigJ;
 	//private boolean change, drawImpass, DrawPig;
@@ -38,19 +44,25 @@ public class Graphics implements Runnable, KeyListener, WindowListener, MouseLis
 	private boolean AITurn, UserTurn;
 	private int TurnCount = 0;
 	//private messageBox info;
+	public static GAMESTATE SCREEN;
 
-private BufferedImage screen1, screen2;
+private Image titleScreen;
+private Image SBImg;
+
+
 	private void loadImages() {
 		try {
-		 screen1 = ImageIO.read(this.getClass().getResource("Capture.PNG"));
-	     screen2 = ImageIO.read(this.getClass().getResource("download.jpg"));
+			
+		titleScreen = ImageIO.read(this.getClass().getResource("titlescreen.png"));
+	    SBImg = ImageIO.read(this.getClass().getResource("StartButton.png"));
 	     
 		} catch (IOException ex) {
-
+			ex.printStackTrace();
 	        Logger.getLogger(Display.class.getName()).log(Level.SEVERE,null, ex);
 	    }
 	}
 	public Graphics() {
+		SCREEN = GAMESTATE.TITLESCREEN;
 		loadImages();
 		//info = new messageBox();
 		showPath = false;
@@ -74,8 +86,17 @@ private BufferedImage screen1, screen2;
 		
 	}
 	public void mouseClicked(MouseEvent arg0) {
+		System.out.println(arg0.getX() + " " + arg0.getY());
 		// TODO Auto-generated method stub
-		
+		switch(SCREEN){
+		case TITLESCREEN:
+			if(arg0.getX() >= widthFix-108 && arg0.getX() <= widthFix+100){
+				if(arg0.getY()>= heightFix+32 && arg0.getY() <= heightFix+75){
+					System.out.println("FRONTDESK NOW");
+					SCREEN = GAMESTATE.FRONTDESK;
+				}
+			}
+		}
 	}
 
 	@Override
@@ -93,6 +114,7 @@ private BufferedImage screen1, screen2;
 	@Override
 	public void mousePressed(MouseEvent e) {
 		// TODO Auto-generated method stub
+	
 		
 	}
 
@@ -147,8 +169,14 @@ private BufferedImage screen1, screen2;
 
 	@Override
 	public void keyPressed(KeyEvent arg0) {
-		// TODO Auto-generated method stub
+		int Key;
+		Key = arg0.getKeyCode();
 		
+		if(Key == KeyEvent.VK_ENTER){
+			
+			
+				
+		}
 	}
 
 	@Override
@@ -167,13 +195,62 @@ private BufferedImage screen1, screen2;
 	public void run() {
 		// TODO Auto-generated method stub
 		// we gonna make the game and the draw function from up there b
+		while(isRunning){
+
+			
+
+			draw();
+
+			
+
+			
+			try{Thread.sleep(50);}
+
+			catch(InterruptedException ie){
+
+				ie.printStackTrace();
+
+			}
+
+		}
+
+		isDone = true;	}
+	
+	public void drawering(Graphics2D g2d){
+		switch(SCREEN){
+		case TITLESCREEN:
+			titleScren(g2d);
+			break;
+		case FRONTDESK:
+			frontdesk(g2d);
+			break;
+		}
+		
 	}
-	public void draw() {
-		//BufferedImage imgBuffer;
-		Graphics2D g2d = (Graphics2D) imgBuffer.getGraphics();
-		//g2d.setBackground(Color.YELLOW);
-		g2d.setPaint((Paint) screen1);
+	public void frontdesk(Graphics2D g2d){
+		g2d.setColor(Color.WHITE);
 		g2d.fillRect(0, 0, SIZE.width, SIZE.height);
 	}
+	public void titleScren(Graphics2D g2d){
+		
+		g2d.setColor(Color.WHITE);
+		g2d.fillRect(0, 0, SIZE.width, SIZE.height);
+		g2d.drawImage(titleScreen, widthFix-256, heightFix-400, widthFix+256, heightFix+112, 0, 0, titleScreen.getWidth(null), titleScreen.getHeight(null), null);
+		g2d.drawImage(SBImg, widthFix-256, heightFix-200, widthFix+256, heightFix+312, 0, 0, 128, 128, null);
+		
+		
+	}
+	public void draw() {
+
+		Graphics2D g2d = (Graphics2D) imgBuffer.getGraphics();
+		
+		
+		drawering(g2d);
+		if(isRunning)
+			
+			g2d = (Graphics2D) frame.getGraphics();
+			g2d.drawImage(imgBuffer, 0, 0, SIZE.width, SIZE.height,  null);
+			g2d.dispose();
+		}
 
 }
