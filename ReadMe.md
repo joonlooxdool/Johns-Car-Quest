@@ -64,3 +64,6 @@ Iori/Traeton- Changed direction for buttons, going to print images and then defi
 
 3.22.17
 Iori/Traeton/Hudson- Display multiple images (fixed file read errors), defined enum spaces, got buttons work with click event
+
+3.28.17
+Iori/Traeton- Distributed github files, got them working on other computers, preparation for designing mechanics Jon- Buttons Brent- Artwork for UI
