@@ -67,3 +67,6 @@ Iori/Traeton/Hudson- Display multiple images (fixed file read errors), defined e
 
 3.28.17
 Iori/Traeton- Distributed github files, got them working on other computers, preparation for designing mechanics Jon- Buttons Brent- Artwork for UI
+
+3.30.17
+Ethan/Traeton- Set framework for future developments, began organizing areas Iori- ARTWORK a lot of it did Jon- Didn't buy a car Brent- Died
