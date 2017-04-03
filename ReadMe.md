@@ -70,3 +70,6 @@ Iori/Traeton- Distributed github files, got them working on other computers, pre
 
 3.30.17
 Ethan/Traeton- Set framework for future developments, began organizing areas Iori- ARTWORK a lot of it did Jon- Didn't buy a car Brent- Died
+
+4.3.17
+Ethan/Traeton- Fixed button problem, aded function for streamlining buttons, added more areas Iori- More artwork, loaded finals to github Jon/Brent- Audio
