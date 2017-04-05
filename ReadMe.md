@@ -73,3 +73,10 @@ Ethan/Traeton- Set framework for future developments, began organizing areas Ior
 
 4.3.17
 Ethan/Traeton- Fixed button problem, aded function for streamlining buttons, added more areas Iori- More artwork, loaded finals to github Jon/Brent- Audio
+
+4.5.17
+Traeton- Finalized button function, created stat bar, implemented and began laying out front desk screen
+Iori- Sprite/graphic work, color pallete organization, finished desk/computer drawing, stat bar buttons
+Ethan- Died
+Brent- Drew a cahr
+Jon- Idek
