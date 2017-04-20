@@ -104,5 +104,7 @@ http://carphotos.cardomain.com/ride_images/1/1027/1021/2565510009_large.jpg
 https://cdn.shopify.com/s/files/1/1139/3842/products/mazda-miata-mx5-na-logo-vinyl-decal-graphic-stripe_large.jpg?v=1453757303
 http://www.nopistons.com/attachments/rx-7-rx-8-sale-26/12277d1083783129-rare-'94-chaste-white-fd-sale-left_side.jpg
 
-
+4.20.2017
+Traeton/Ethan- Coded back button system and fixed buttons
+Iori/Jon/Brent- Arted more cars
 
