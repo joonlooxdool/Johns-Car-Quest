@@ -24,7 +24,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 
 public class Graphics implements Runnable, KeyListener, WindowListener, MouseListener{
-	public static enum GAMESTATE{TITLESCREEN, CRAIGSLIST, FRONTDESK, GARAGE};
+	public static enum GAMESTATE{TITLESCREEN, CRAIGSLIST, FRONTDESK, GARAGE, STATS, UTIL, LOG, BACK};
 	public final String TITLE = "Used Car Tycoon";
 	public final Dimension SIZE = new Dimension(1920, 1080);
 	public JFrame frame;
@@ -45,9 +45,10 @@ public class Graphics implements Runnable, KeyListener, WindowListener, MouseLis
 	private int TurnCount = 0;
 	//private messageBox info;
 	public static GAMESTATE SCREEN;
+	int currentState = 0; //1 = titlescreen. 2 = frontdesk. 3 = craigslist. 4 = stats. 5 = util. 6 = log. 7 = util.
 
-private Image titleScreen;
-private Image SBImg;
+private Image titleScreen, SBImg, statBar, buyButton, carsButton, partsButton, upgradesButton, statButton, utilButton, logButton;
+
 
 
 	private void loadImages() {
@@ -55,7 +56,15 @@ private Image SBImg;
 			
 		titleScreen = ImageIO.read(this.getClass().getResource("titlescreen.png"));
 	    SBImg = ImageIO.read(this.getClass().getResource("StartButton.png"));
-	     
+	    statBar = ImageIO.read(this.getClass().getResource("statbarb.png"));
+	    buyButton = ImageIO.read(this.getClass().getResource("buy.png"));
+	    carsButton = ImageIO.read(this.getClass().getResource("carsbutton.png"));
+	    partsButton = ImageIO.read(this.getClass().getResource("partsbutton.png"));
+	    upgradesButton = ImageIO.read(this.getClass().getResource("upgradesbutton.png"));
+	    statButton = ImageIO.read(this.getClass().getResource("statbutton.png"));
+	    utilButton = ImageIO.read(this.getClass().getResource("utilbutton.png"));
+	    logButton = ImageIO.read(this.getClass().getResource("logbutton.png"));
+	    
 		} catch (IOException ex) {
 			ex.printStackTrace();
 	        Logger.getLogger(Display.class.getName()).log(Level.SEVERE,null, ex);
@@ -65,11 +74,11 @@ private Image SBImg;
 		SCREEN = GAMESTATE.TITLESCREEN;
 		loadImages();
 		//info = new messageBox();
-		showPath = false;
+		//showPath = false;
 		//setChange(true);
 		//setDrawImpass(false);
 		//setDrawPig(false);
-		BROWN = new Color(139,69,19);
+		//BROWN = new Color(139,69,19);
 		//setGame(new square [11][5]); 
 		//createTiles();
 		frame = new JFrame();
@@ -85,18 +94,65 @@ private Image SBImg;
 		imgBuffer = frame.createImage(SIZE.width, SIZE.height);
 		
 	}
+	
+	public boolean buttonBuilder (int x1, int y1, int x2, int y2, MouseEvent arg0){
+		
+		if(arg0.getX() >= x1 && arg0.getX() <= x2){
+			if(arg0.getY()>= y1 && arg0.getY() <= y2){
+				System.out.println("X : " + x1 + " : " + arg0.getX() + " : " + x2);
+				System.out.println("Y : " + y1 + " : " + arg0.getY() + " : " + y2);
+		return true;
+			}
+		}
+		return false;
+	}
+	
+	
+
 	public void mouseClicked(MouseEvent arg0) {
+		Graphics2D g2d = (Graphics2D) imgBuffer.getGraphics();
 		System.out.println(arg0.getX() + " " + arg0.getY());
 		// TODO Auto-generated method stub
 		switch(SCREEN){
+		
 		case TITLESCREEN:
-			if(arg0.getX() >= widthFix-108 && arg0.getX() <= widthFix+100){
-				if(arg0.getY()>= heightFix+32 && arg0.getY() <= heightFix+75){
-					System.out.println("FRONTDESK NOW");
-					SCREEN = GAMESTATE.FRONTDESK;
-				}
+			if (buttonBuilder(widthFix-108, heightFix+32, widthFix+100, heightFix+75, arg0)){
+				SCREEN = GAMESTATE.FRONTDESK;
 			}
-		}
+			break;
+		case FRONTDESK:
+			if(buttonBuilder(36, 897, 181, 1037, arg0)){
+				SCREEN = GAMESTATE.STATS;
+			}
+			if(buttonBuilder(240, 897, 385, 1037, arg0)){
+				SCREEN = GAMESTATE.UTIL;
+			}
+			if(buttonBuilder(428, 897, 573, 1037, arg0)){
+				SCREEN = GAMESTATE.LOG;
+			}
+			break;
+		case STATS:
+			break;
+		case UTIL:
+			break;
+		case CRAIGSLIST:
+			break;
+		case BACK:
+			if(buttonBuilder(SIZE.width-100, 0, SIZE.width+100, 50, arg0)){
+				back(g2d, arg0);
+			}
+			break;
+		default:
+			break;
+		}	
+		
+		
+			
+			
+	}
+	
+	public void createButton(){
+		 
 	}
 
 	@Override
@@ -199,11 +255,9 @@ private Image SBImg;
 
 			
 
+			
 			draw();
 
-			
-
-			
 			try{Thread.sleep(50);}
 
 			catch(InterruptedException ie){
@@ -215,42 +269,147 @@ private Image SBImg;
 		}
 
 		isDone = true;	}
-	
-	public void drawering(Graphics2D g2d){
+	MouseEvent arg0;
+	public void drawering(Graphics2D g2d, MouseEvent arg0){
 		switch(SCREEN){
 		case TITLESCREEN:
-			titleScren(g2d);
+			currentState = 1;
+			titleScreen(g2d);
 			break;
 		case FRONTDESK:
-			frontdesk(g2d);
+			currentState = 2;
+			frontdesk(g2d, arg0);
+			break;
+		case CRAIGSLIST:
+			currentState = 3;
+			craigslist(g2d);
+			break;
+		case STATS:
+			currentState = 4;
+			statsScreen(g2d);
+			break;
+		case UTIL:
+			currentState = 5;
+			utilScreen(g2d);
+			break;
+		case LOG:
+			currentState = 6;
+			logScreen(g2d);
+			break;
+		case BACK:
+			back(g2d, arg0);
+			break;
+		default:
 			break;
 		}
 		
 	}
-	public void frontdesk(Graphics2D g2d){
+	
+	public void back(Graphics2D g2d, MouseEvent arg0){
+		
+		
+			switch(currentState){
+			case 1:
+				break;
+			case 2:
+				SCREEN = GAMESTATE.FRONTDESK;
+				currentState = 2;
+				break;
+			case 3:
+				SCREEN = GAMESTATE.FRONTDESK;
+				currentState = 2;
+				break;
+			case 4:
+				SCREEN = GAMESTATE.FRONTDESK;
+				currentState = 2;
+				break;
+			case 5:
+				SCREEN = GAMESTATE.FRONTDESK;
+				currentState = 2;
+				break;
+			case 6:
+				SCREEN = GAMESTATE.FRONTDESK;
+				currentState = 2;
+				break;
+			};
+		//}
+	}
+	
+	public void frontdesk(Graphics2D g2d, MouseEvent arg0){
 		g2d.setColor(Color.WHITE);
 		g2d.fillRect(0, 0, SIZE.width, SIZE.height);
-	}
-	public void titleScren(Graphics2D g2d){
 		
-		g2d.setColor(Color.WHITE);
+		g2d.drawImage(statBar, 0, 900, 1920, 1050, 0, 0, 240, 60, null);
+		//g2d.setColor(Color.GREEN);
+		//g2d.fillRect(50, 950, 100, 40);
+		//System.out.println("");
+		g2d.drawImage(statButton, 36, 897, 181, 1037, 0, 0, 192, 192, null);
+		g2d.drawImage(utilButton, 240, 897, 385, 1037, 0, 0, 192, 192, null);
+		g2d.drawImage(logButton, 428, 897, 573, 1037, 0, 0, 192, 192, null);
+	}
+	public void titleScreen(Graphics2D g2d){
+		g2d.setColor(Color.BLACK);
 		g2d.fillRect(0, 0, SIZE.width, SIZE.height);
 		g2d.drawImage(titleScreen, widthFix-256, heightFix-400, widthFix+256, heightFix+112, 0, 0, titleScreen.getWidth(null), titleScreen.getHeight(null), null);
 		g2d.drawImage(SBImg, widthFix-256, heightFix-200, widthFix+256, heightFix+312, 0, 0, 128, 128, null);
 		
-		
 	}
+	public void craigslist(Graphics2D g2d){
+		g2d.setColor(Color.WHITE);
+		g2d.fillRect(0, 0, SIZE.width, SIZE.height);
+		//craigslistButtons(g2d);
+		g2d.setColor(Color.GREEN);
+		g2d.fillRect(50, 950, 100, 40);
+		g2d.setColor(Color.MAGENTA);
+		g2d.fillRect(SIZE.width - 100, 0, 100, 50);
+	}
+	public void statsScreen(Graphics2D g2d){
+		g2d.setColor(Color.GRAY);
+		g2d.fillRect(0, 0, SIZE.width, SIZE.height);
+		g2d.setColor(Color.WHITE);
+		g2d.setColor(Color.MAGENTA);
+		g2d.fillRect(SIZE.width - 100, 0, 100, 50);
+	}
+	public void utilScreen(Graphics2D g2d){
+		g2d.setColor(Color.RED);
+		g2d.fillRect(0, 0, SIZE.width, SIZE.height);
+		g2d.setColor(Color.WHITE);
+		g2d.setColor(Color.MAGENTA);
+		g2d.fillRect(SIZE.width - 100, 0, 100, 50);
+	}
+	public void logScreen(Graphics2D g2d){
+		g2d.setColor(Color.ORANGE);
+		g2d.fillRect(0,  0, SIZE.width, SIZE.height);
+		g2d.setColor(Color.WHITE);
+		g2d.setColor(Color.MAGENTA);
+		g2d.fillRect(SIZE.width - 100, 0, 100, 50);
+	}
+	public void craigslistButtons(Graphics2D g2d){
+		int posX[] = {100,200,300,400};
+		int posY[] = {100,200,300,400};
+		
+		for(int i = 1; i <= 4; i++){
+			g2d.setColor(Color.RED); //Front Desk
+			g2d.fillRect(posX[i], posY[i], SIZE.width, SIZE.height);
+			
+		}
+	}
+	public void beachBoys(Graphics2D g2d){
+		drawering(g2d, arg0);
+	}
+	
 	public void draw() {
 
 		Graphics2D g2d = (Graphics2D) imgBuffer.getGraphics();
 		
 		
-		drawering(g2d);
-		if(isRunning)
+		beachBoys(g2d);
+		if(isRunning){
 			
 			g2d = (Graphics2D) frame.getGraphics();
 			g2d.drawImage(imgBuffer, 0, 0, SIZE.width, SIZE.height,  null);
 			g2d.dispose();
 		}
+	}
 
 }
