@@ -1,0 +1,24 @@
+import java.awt.BorderLayout;
+import java.awt.Canvas;
+import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.image.BufferStrategy;
+import java.awt.image.BufferedImage;
+import java.awt.image.DataBufferInt;
+import java.util.Scanner;
+
+import javax.swing.JFrame;
+
+import SpriteSheet.sstest;
+
+public class Game{
+	public static void main(String []args){
+		System.out.println("How much money would you like to start with?");
+		int money;
+		//int car = 500;
+		Scanner input=new Scanner(System.in);
+		money=input.nextInt();
+		//money = money+car;
+		System.out.println("$"+money);
+	}
+}
