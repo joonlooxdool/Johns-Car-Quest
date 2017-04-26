@@ -2,6 +2,7 @@ package images;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.TexturePaint;
@@ -73,14 +74,6 @@ private Image titleScreen, SBImg, statBar, buyButton, carsButton, partsButton, u
 	public Graphics() {
 		SCREEN = GAMESTATE.TITLESCREEN;
 		loadImages();
-		//info = new messageBox();
-		//showPath = false;
-		//setChange(true);
-		//setDrawImpass(false);
-		//setDrawPig(false);
-		//BROWN = new Color(139,69,19);
-		//setGame(new square [11][5]); 
-		//createTiles();
 		frame = new JFrame();
 		frame.addKeyListener(this);
 		frame.addWindowListener(this);
@@ -92,15 +85,16 @@ private Image titleScreen, SBImg, statBar, buyButton, carsButton, partsButton, u
 		frame.setVisible(true);
 		frame.setLayout(null);
 		imgBuffer = frame.createImage(SIZE.width, SIZE.height);
-		
 	}
 	
 	public boolean buttonBuilder (int x1, int y1, int x2, int y2, MouseEvent arg0){
-		
+		System.out.println("BUTTON");
+		System.out.println(x1 + " : " + x2);
 		if(arg0.getX() >= x1 && arg0.getX() <= x2){
 			if(arg0.getY()>= y1 && arg0.getY() <= y2){
 				System.out.println("X : " + x1 + " : " + arg0.getX() + " : " + x2);
 				System.out.println("Y : " + y1 + " : " + arg0.getY() + " : " + y2);
+				System.out.println("REACH");
 		return true;
 			}
 		}
@@ -108,7 +102,7 @@ private Image titleScreen, SBImg, statBar, buyButton, carsButton, partsButton, u
 	}
 	
 	
-
+	
 	public void mouseClicked(MouseEvent arg0) {
 		Graphics2D g2d = (Graphics2D) imgBuffer.getGraphics();
 		System.out.println(arg0.getX() + " " + arg0.getY());
@@ -137,92 +131,21 @@ private Image titleScreen, SBImg, statBar, buyButton, carsButton, partsButton, u
 			break;
 		case CRAIGSLIST:
 			break;
-		case BACK:
-			if(buttonBuilder(SIZE.width-100, 0, SIZE.width+100, 50, arg0)){
-				back(g2d, arg0);
-			}
-			break;
+	
 		default:
 			break;
 		}	
-		
+		if(SCREEN != GAMESTATE.BACK || SCREEN != GAMESTATE.FRONTDESK)
+		if(buttonBuilder(SIZE.width-100, 0, SIZE.width, 50, arg0)){
+			SCREEN = GAMESTATE.BACK;
+			
+		}
 		
 			
 			
 	}
 	
-	public void createButton(){
-		 
-	}
-
-	@Override
-	public void mouseEntered(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void mouseExited(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void mousePressed(MouseEvent e) {
-		// TODO Auto-generated method stub
 	
-		
-	}
-
-	@Override
-	public void mouseReleased(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void windowActivated(WindowEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void windowClosed(WindowEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void windowClosing(WindowEvent arg0) 
-	{
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void windowDeactivated(WindowEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void windowDeiconified(WindowEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void windowIconified(WindowEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void windowOpened(WindowEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
-
 	@Override
 	public void keyPressed(KeyEvent arg0) {
 		int Key;
@@ -271,6 +194,7 @@ private Image titleScreen, SBImg, statBar, buyButton, carsButton, partsButton, u
 		isDone = true;	}
 	MouseEvent arg0;
 	public void drawering(Graphics2D g2d, MouseEvent arg0){
+		
 		switch(SCREEN){
 		case TITLESCREEN:
 			currentState = 1;
@@ -307,7 +231,7 @@ private Image titleScreen, SBImg, statBar, buyButton, carsButton, partsButton, u
 	
 	public void back(Graphics2D g2d, MouseEvent arg0){
 		
-		
+		System.out.println(SCREEN);
 			switch(currentState){
 			case 1:
 				break;
@@ -333,6 +257,7 @@ private Image titleScreen, SBImg, statBar, buyButton, carsButton, partsButton, u
 				break;
 			};
 		//}
+			System.out.println(SCREEN);
 	}
 	
 	public void frontdesk(Graphics2D g2d, MouseEvent arg0){
@@ -340,13 +265,17 @@ private Image titleScreen, SBImg, statBar, buyButton, carsButton, partsButton, u
 		g2d.fillRect(0, 0, SIZE.width, SIZE.height);
 		
 		g2d.drawImage(statBar, 0, 900, 1920, 1050, 0, 0, 240, 60, null);
-		//g2d.setColor(Color.GREEN);
-		//g2d.fillRect(50, 950, 100, 40);
-		//System.out.println("");
+		
 		g2d.drawImage(statButton, 36, 897, 181, 1037, 0, 0, 192, 192, null);
 		g2d.drawImage(utilButton, 240, 897, 385, 1037, 0, 0, 192, 192, null);
 		g2d.drawImage(logButton, 428, 897, 573, 1037, 0, 0, 192, 192, null);
+		
+		g2d.setColor(Color.BLACK);
+		//g2d.setFont(g2d.getFont(Font.verdana));
+		int money = 0;
+		g2d.drawString("$" + String.valueOf(money), widthFix, heightFix);
 	}
+	
 	public void titleScreen(Graphics2D g2d){
 		g2d.setColor(Color.BLACK);
 		g2d.fillRect(0, 0, SIZE.width, SIZE.height);
@@ -410,6 +339,61 @@ private Image titleScreen, SBImg, statBar, buyButton, carsButton, partsButton, u
 			g2d.drawImage(imgBuffer, 0, 0, SIZE.width, SIZE.height,  null);
 			g2d.dispose();
 		}
+	}
+	@Override
+	public void mouseEntered(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void mouseExited(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void mousePressed(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void mouseReleased(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void windowActivated(WindowEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void windowClosed(WindowEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void windowClosing(WindowEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void windowDeactivated(WindowEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void windowDeiconified(WindowEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void windowIconified(WindowEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void windowOpened(WindowEvent arg0) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }
