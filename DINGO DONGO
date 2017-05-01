@@ -33,6 +33,7 @@ public class Graphics implements Runnable, KeyListener, WindowListener, MouseLis
 	private Image imgBuffer;
 	private TexturePaint jdm, bmw, gtr, supercar;
 	private int side = 50;
+	int money = 1000000;
 	int widthFix = (SIZE.width/2);
 	int heightFix = (SIZE.height/2);
 	//private int PigI;
@@ -150,7 +151,7 @@ private Image titleScreen, SBImg, statBar, buyButton, carsButton, partsButton, u
 			break;
 		}	
 		if(SCREEN != GAMESTATE.BACK || SCREEN != GAMESTATE.FRONTDESK)
-		if(buttonBuilder(SIZE.width-100, 0, SIZE.width, 50, arg0)){
+		if(buttonBuilder(SIZE.width-185, 0, SIZE.width, 75, arg0)){
 			SCREEN = GAMESTATE.BACK;
 			
 		}
@@ -299,8 +300,9 @@ private Image titleScreen, SBImg, statBar, buyButton, carsButton, partsButton, u
 		
 		g2d.setColor(Color.WHITE);
 		
-		int money = 0;
-		g2d.drawString("$" + String.valueOf(money), 30, 60);
+		
+		g2d.drawString("$" + String.valueOf(money--), 30, 60);
+		
 	}
 	
 	public void titleScreen(Graphics2D g2d){
@@ -316,9 +318,9 @@ private Image titleScreen, SBImg, statBar, buyButton, carsButton, partsButton, u
 		
 		g2d.drawImage(statBar, 0, 900, 1920, 1050, 0, 0, 240, 60, null);
 		g2d.drawImage(statBar, 0, 30, 1920, 80, 0, 0, 240, 60, null);
-		g2d.drawImage(screenBorder, 0, 80, 1920, 900, 0, 0, 240, 106, null);
-		
-		g2d.drawImage(backButton, 900, 10, 1092, 202, 0, 0, 192, 192, null);
+		g2d.drawImage(screenBorder, 0, 80, 1920, 900, 0, 0, 240, 106, null);		
+		g2d.drawImage(backButton, 1730, -25, 1902, 132, 0, 0, 192, 192, null);
+		g2d.drawString("$" + String.valueOf(money), 30, 60);
 	}
 	
 	public void garageScreen(Graphics2D g2d){
@@ -327,7 +329,8 @@ private Image titleScreen, SBImg, statBar, buyButton, carsButton, partsButton, u
 		g2d.drawImage(garage, 0, 80, 1920, 900, 0, 0, 240, 106, null);
 		g2d.drawImage(statBar, 0, 900, 1920, 1050, 0, 0, 240, 60, null);
 		g2d.drawImage(statBar, 0, 30, 1920, 80, 0, 0, 240, 60, null);
-		
+		g2d.drawImage(backButton, 1730, -25, 1902, 132, 0, 0, 192, 192, null);
+		g2d.drawString("$" + String.valueOf(money), 30, 60);
 	}
 	
 	public void statsScreen(Graphics2D g2d){
@@ -338,8 +341,9 @@ private Image titleScreen, SBImg, statBar, buyButton, carsButton, partsButton, u
 		g2d.drawImage(statBar, 0, 30, 1920, 80, 0, 0, 240, 60, null);
 		
 		g2d.setColor(Color.WHITE);
-		g2d.setColor(Color.MAGENTA);
-		g2d.fillRect(SIZE.width - 100, 0, 100, 50);
+		g2d.drawImage(backButton, 1730, -25, 1902, 132, 0, 0, 192, 192, null);
+		g2d.drawString("$" + String.valueOf(money), 30, 60);
+
 	}
 	public void utilScreen(Graphics2D g2d){
 		g2d.setColor(Color.RED);
@@ -350,8 +354,8 @@ private Image titleScreen, SBImg, statBar, buyButton, carsButton, partsButton, u
 		
 		g2d.setColor(Color.WHITE);
 		
-		g2d.setColor(Color.MAGENTA);
-		g2d.fillRect(SIZE.width - 100, 0, 100, 50);
+		g2d.drawImage(backButton, 1730, -25, 1902, 132, 0, 0, 192, 192, null);
+		g2d.drawString("$" + String.valueOf(money), 30, 60);
 		
 	}
 	public void logScreen(Graphics2D g2d){
@@ -361,8 +365,8 @@ private Image titleScreen, SBImg, statBar, buyButton, carsButton, partsButton, u
 		g2d.drawImage(statBar, 0, 900, 1920, 1050, 0, 0, 240, 60, null);
 		g2d.drawImage(statBar, 0, 30, 1920, 80, 0, 0, 240, 60, null);
 		
-		g2d.setColor(Color.MAGENTA);
-		g2d.fillRect(SIZE.width - 100, 0, 100, 50);
+		g2d.drawImage(backButton, 1730, -25, 1902, 132, 0, 0, 192, 192, null);
+		g2d.drawString("$" + String.valueOf(money), 30, 60);
 	}
 	
 	public void beachBoys(Graphics2D g2d){
