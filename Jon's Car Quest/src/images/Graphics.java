@@ -313,7 +313,7 @@ private Image civicRed, datsun, e36, fj, civicR, cClass, rx7, toyotaGt;
 		g2d.setColor(Color.WHITE);
 		
 		
-		g2d.drawString("$" + String.valueOf(money--), 30, 60);
+		g2d.drawString("$" + String.valueOf(money), 30, 60);
 		
 	}
 	
@@ -332,17 +332,42 @@ private Image civicRed, datsun, e36, fj, civicR, cClass, rx7, toyotaGt;
 		g2d.drawImage(statBar, 0, 30, 1920, 80, 0, 0, 240, 60, null);
 		g2d.drawImage(screenBorder, 0, 80, 1920, 900, 0, 0, 240, 106, null);		
 		g2d.drawImage(backButton, 1730, -25, 1902, 132, 0, 0, 192, 192, null);
+		g2d.drawImage(backButton, 1730, 900, 1902, 1092, 0, 0, 192, 192, null);
 		g2d.drawString("$" + String.valueOf(money), 30, 60);
 		
 		craigslistButtons(g2d);
+
 	}
 	public void craigslistButtons(Graphics2D g2d){
 		
 		Random rand = new Random();
 		int n = rand.nextInt(2) + 1;
+		int numCars = 2;
+		String currentCar;
+		Car car = new Car();
+		currentCar = Car.carCall();
+		
+		switch(currentCar){
+		case "Honda Civic type R": 
+			break;
+		case "Datsun 510":
+			break;
+		case "BMW M3":
+			break;
+		case "Toyota FJ Cruiser":
+			break;
+		case "Mercedes C-Class Coupe":
+			break;
+		case "Mazda  RX-7":
+			break;
+		case "Toyota 2000GT":
+			break;
+		}
+		
+		
+		}
 	
-			
-			switch(n){
+			/*switch(n){
 			case 1: 
 				g2d.drawImage(civicR, 104, 200, 404, 477, 0, 0, 128, 96, null);
 				break;
@@ -352,28 +377,51 @@ private Image civicRed, datsun, e36, fj, civicR, cClass, rx7, toyotaGt;
 			
 			}
 			
-			n = rand.nextInt(2) + 1;
+			n = rand.nextInt(numCars) + 1;
 			switch(n){
 			case 1:
-				g2d.drawImage(toyotaGt, 104, 200, 404, 477, 0, 0, 128, 72, null);
+				g2d.drawImage(toyotaGt, 104, 500, 404, 777, 0, 0, 128, 72, null);
 				break;
 			case 2:
-				g2d.drawImage(rx7, 104, 200, 404, 477, 0, 0, 768, 576, null);
+				g2d.drawImage(rx7, 104, 500, 404, 777, 0, 0, 768, 576, null);
 				break;
 			
 			}
 			
-			n = rand.nextInt(2) + 1;
+			n = rand.nextInt(numCars) + 1;
 			switch(n){
 			case 1:
-				g2d.drawImage(fj, 104, 200, 404, 477, 0, 0, 128, 85, null);
+				g2d.drawImage(fj, 1500, 200, 1800, 477, 0, 0, 500, 300, null);
 				break;
 			case 2:
-				g2d.drawImage(civicRed, 104, 200, 404, 477, 0, 0, 480, 318, null);
+				g2d.drawImage(toyotaGt, 1500, 200, 404, 477, 0, 0, 1000, 700, null);
 				break;
 			}
-		
+			
+			n = rand.nextInt(numCars) + 1;
+			switch(n){
+			case 1:
+				g2d.drawImage(e36, 1500, 500, 1800, 777, 0, 0, 500, 300, null);
+				break;
+			case 2:
+				g2d.drawImage(civicR, 1500, 500, 404, 777, 0, 0, 500, 300, null);
+				break;
+			}
+			
+			/*while(true){
+				if(buttonBuilder(1730, 900, 1902, 1092, arg1)){
+					craigslistButtons(g2d);
+					break;
+				}
+			}*/
 	}
+	
+	public void car(){
+	int odo, cond, price; 
+	String title;
+	boolean problem = false;
+	}
+	
 	public void garageScreen(Graphics2D g2d){
 		g2d.setColor(Color.WHITE);
 		g2d.fillRect(0, 0, SIZE.width, SIZE.height);
