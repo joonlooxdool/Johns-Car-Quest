@@ -25,6 +25,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 
 import java.util.Random;
+import java.util.Scanner;
 
 public class Graphics implements Runnable, KeyListener, WindowListener, MouseListener{
 	public static enum GAMESTATE{TITLESCREEN, CRAIGSLIST, FRONTDESK, GARAGE, STATS, UTIL, LOG, BACK};
@@ -35,7 +36,7 @@ public class Graphics implements Runnable, KeyListener, WindowListener, MouseLis
 	private Image imgBuffer;
 	private TexturePaint jdm, bmw, gtr, supercar;
 	private int side = 50;
-	int money = 1000000;
+	int money = 1000;
 	int widthFix = (SIZE.width/2);
 	int heightFix = (SIZE.height/2);
 	//private int PigI;
@@ -50,10 +51,23 @@ public class Graphics implements Runnable, KeyListener, WindowListener, MouseLis
 	//private messageBox info;
 	public static GAMESTATE SCREEN;
 	int currentState = 0; //1 = titlescreen. 2 = frontdesk. 3 = craigslist. 4 = stats. 5 = util. 6 = log. 7 = util.
+	int done = 0;
+	String end = "";
+	int cost;
+	int odo;
+	String condition;
+	int year;
+	Image[] owned = new Image[11];
 
 private Image titleScreen, SBImg, statBar, buyButton, carsButton, partsButton, upgradesButton, statButton, utilButton, logButton, shopFront, tableComp, computer, garage, backButton, screenBorder;
 //CARS
-private Image civicRed, datsun, e36, fj, civicR, cClass, rx7, toyotaGt;
+private Image civicRed, datsun, e36, fj, civicR, cClassWHITE, cClassBLACK, rx7, toyotaGt, toyotaGtRED, Datsun510, lancer, miata, s2000, crv, BMWM3, bmwx3blue, BMWX3, somegoldcar, noImage;
+	
+public void initGarage(){
+	for(int i = 0; i < owned.length; i++){
+		owned[i] = noImage;
+	}
+}
 
 
 	private void loadImages() {
@@ -80,11 +94,21 @@ private Image civicRed, datsun, e36, fj, civicR, cClass, rx7, toyotaGt;
 	     e36 = ImageIO.read(this.getClass().getResource("e36.png"));
 	     fj = ImageIO.read(this.getClass().getResource("fj new.png"));
 	     civicR = ImageIO.read(this.getClass().getResource("Honda Civic Type R.png"));
-	     cClass = ImageIO.read(this.getClass().getResource("mercedes c class.png"));
+	     cClassWHITE = ImageIO.read(this.getClass().getResource("Mercedes C Class WHITE.png"));
+	     cClassBLACK = ImageIO.read(this.getClass().getResource("Mercedes C Class BLACK.png"));
 	     rx7 = ImageIO.read(this.getClass().getResource("rx7.png"));
 	     toyotaGt = ImageIO.read(this.getClass().getResource("toyota 2000 gt.png"));
-	    
-	    
+	     toyotaGtRED = ImageIO.read(this.getClass().getResource("toyota 2000 gt RED.png"));
+	     Datsun510 = ImageIO.read(this.getClass().getResource("Datsun 510.png"));
+	     lancer = ImageIO.read(this.getClass().getResource("Mitsubishi Lancer.png"));
+	     miata = ImageIO.read(this.getClass().getResource("miata hardtop.png"));
+	     s2000 = ImageIO.read(this.getClass().getResource("s2000.png"));
+	     crv = ImageIO.read(this.getClass().getResource("crv pixell.png"));
+	     BMWM3 = ImageIO.read(this.getClass().getResource("Blue M3.png"));
+	     bmwx3blue = ImageIO.read(this.getClass().getResource("BMW X3 BLUE.png"));
+	     BMWX3 = ImageIO.read(this.getClass().getResource("BMW X3.png"));
+	     somegoldcar = ImageIO.read(this.getClass().getResource("some gold car.png"));
+	     
 		} catch (IOException ex) {
 			ex.printStackTrace();
 	        Logger.getLogger(Display.class.getName()).log(Level.SEVERE,null, ex);
@@ -233,7 +257,7 @@ private Image civicRed, datsun, e36, fj, civicR, cClass, rx7, toyotaGt;
 			break;
 		case CRAIGSLIST:
 			currentState = 3;
-			craigslist(g2d);
+			craigslistButtons(g2d);
 			break;
 		case STATS:
 			currentState = 4;
@@ -290,7 +314,6 @@ private Image civicRed, datsun, e36, fj, civicR, cClass, rx7, toyotaGt;
 				SCREEN = GAMESTATE.FRONTDESK;
 				currentState = 2;
 			};
-		//}
 			System.out.println(SCREEN);
 	}
 	
@@ -324,7 +347,84 @@ private Image civicRed, datsun, e36, fj, civicR, cClass, rx7, toyotaGt;
 		g2d.drawImage(SBImg, widthFix-256, heightFix-200, widthFix+256, heightFix+312, 0, 0, 128, 128, null);
 		
 	}
-	public void craigslist(Graphics2D g2d){
+	
+	public String chooseCar(Graphics2D g2d){
+		
+		
+		
+		g2d.setColor(Color.MAGENTA);
+		g2d.fillRect(36, 897, 181, 1500);
+		if(buttonBuilder(36, 897, 181, 1500, arg1)){
+			
+			Random rand = new Random();
+			int a = rand.nextInt(12)+1;
+		
+		switch(a){
+		case 1:
+			end = "CIVIC";
+			break;
+		case 2:
+			end = "E36";
+			break;
+		case 3:
+			end = "DATSUN";
+			break;
+		case 4:
+			end = "TOYOTAGT";
+			break;
+		case 5:
+			end = "RX7";
+			break;
+		case 6:
+			end = "MIATA";
+			break;
+		case 7:
+			end = "FJ";
+			break;
+		case 8:
+			end = "DATSUN510";
+			break;
+		case 9:
+			end = "TOYOTAGTRED";
+			break;
+		case 10:
+			end = "LANCER";
+			break;
+		case 11:
+			end = "SOMEGOLDCAR";
+			break;
+		case 12:
+			end = "S2000";
+			break;
+		}
+		
+		}
+		
+		return end;
+	}
+	
+	
+	public void craigslistReport(Image model){
+		for(int i = 0; i < owned.length; i++){
+			if((owned[i] == noImage) && (owned[i] != model)){
+				owned[i] = model;
+			}else if(owned[i] == model){
+				System.out.println("YOU ALREADY HAVE THAT ONE YOU RETARD");
+			}
+		}
+	}
+	
+	public void reset(){
+		
+		
+		
+	}
+	
+	public void craigslistButtons(Graphics2D g2d){
+		
+		Random rand = new Random();
+		int a = rand.nextInt(12)+1;
+		
 		g2d.setColor(Color.WHITE);
 		g2d.fillRect(0, 0, SIZE.width, SIZE.height);
 		
@@ -335,19 +435,465 @@ private Image civicRed, datsun, e36, fj, civicR, cClass, rx7, toyotaGt;
 		g2d.drawImage(backButton, 1730, 900, 1902, 1092, 0, 0, 192, 192, null);
 		g2d.drawString("$" + String.valueOf(money), 30, 60);
 		
-		craigslistButtons(g2d);
-
+		String end = chooseCar(g2d);
+		
+		for(int i = 0; i < 4; i++){
+            g2d.drawString("                                                                                       ", 10, 200);
+			switch(end){
+			case "CIVIC": 
+				cost = 5000;
+				g2d.drawImage(civicR, 104, 200, 404, 477, 0, 0, 128, 96, null);
+				odo = rand.nextInt(200000);
+				if(odo < 100000){
+				int condChance = rand.nextInt(3) + 1;
+				if(condChance == 1){
+					condition = "really good";
+				}else if(condChance == 2){
+					condition = "pretty decent";
+				}else{
+					condition = "gahbage";
+				}
+				}else if(odo > 100000){
+					int condChance = rand.nextInt(3) + 1;
+					if(condChance > 1){
+						condition = "pretty decent";
+					}else{
+						condition = "gahbage";
+					}
+				}
+				
+				if(condition.equals("gahbage")){
+					cost -= 1000;
+				}else if(condition.equals("pretty decent")){
+					cost += 1000;
+				}else{
+					cost += 2000;
+				}
+				g2d.drawString("Cost: " + cost + "             " + "Odometer: " + odo + "             " + condition, 10, 200);
+				if(buttonBuilder(104, 200, 404, 477, arg1)){
+					money -= cost;
+					craigslistReport(civicR);
+				}
+				break;
+			case "E36":
+				g2d.drawImage(e36, 104, 200, 404, 477, 0, 0, 128, 85, null);
+				
+				cost = 5000;
+				odo = rand.nextInt(200000);
+				if(odo < 100000){
+				int condChance = rand.nextInt(3) + 1;
+				if(condChance == 1){
+					condition = "really good";
+				}else if(condChance == 2){
+					condition = "pretty decent";
+				}else{
+					condition = "gahbage";
+				}
+				}else if(odo > 100000){
+					int condChance = rand.nextInt(3) + 1;
+					if(condChance > 1){
+						condition = "pretty decent";
+					}else{
+						condition = "gahbage";
+					}
+				}
+				
+				if(condition.equals("gahbage")){
+					cost -= 1000;
+				}else if(condition.equals("pretty decent")){
+					cost += 1000;
+				}else{
+					cost += 2000;
+				}
+				g2d.drawString("Cost: " + cost + "             " + "Odometer: " + odo + "             " + condition, 10, 200);
+				if(buttonBuilder(104, 200, 404, 477, arg1)){
+					money -= cost;
+					craigslistReport(e36);
+				}
+				
+				break;
+			case "DATSUN":
+				g2d.drawImage(datsun, 104, 200, 404, 477, 0, 0, 128, 85, null);
+				
+				cost = 5000;
+				odo = rand.nextInt(200000);
+				if(odo < 100000){
+				int condChance = rand.nextInt(3) + 1;
+				if(condChance == 1){
+					condition = "really good";
+				}else if(condChance == 2){
+					condition = "pretty decent";
+				}else{
+					condition = "gahbage";
+				}
+				}else if(odo > 100000){
+					int condChance = rand.nextInt(3) + 1;
+					if(condChance > 1){
+						condition = "pretty decent";
+					}else{
+						condition = "gahbage";
+					}
+				}
+				
+				if(condition.equals("gahbage")){
+					cost -= 1000;
+				}else if(condition.equals("pretty decent")){
+					cost += 1000;
+				}else{
+					cost += 2000;
+				}
+				g2d.drawString("Cost: " + cost + "             " + "Odometer: " + odo + "             " + condition, 10, 200);
+				if(buttonBuilder(104, 200, 404, 477, arg1)){
+					money -= cost;
+					craigslistReport(datsun);
+				}
+				
+				break;
+			case "TOYOTAGT": 
+				g2d.drawImage(toyotaGt, 104, 500, 404, 777, 0, 0, 128, 72, null);
+				
+				cost = 5000;
+				odo = rand.nextInt(200000);
+				if(odo < 100000){
+				int condChance = rand.nextInt(3) + 1;
+				if(condChance == 1){
+					condition = "really good";
+				}else if(condChance == 2){
+					condition = "pretty decent";
+				}else{
+					condition = "gahbage";
+				}
+				}else if(odo > 100000){
+					int condChance = rand.nextInt(3) + 1;
+					if(condChance > 1){
+						condition = "pretty decent";
+					}else{
+						condition = "gahbage";
+					}
+				}
+				
+				if(condition.equals("gahbage")){
+					cost -= 1000;
+				}else if(condition.equals("pretty decent")){
+					cost += 1000;
+				}else{
+					cost += 2000;
+				}
+				g2d.drawString("Cost: " + cost + "             " + "Odometer: " + odo + "             " + condition, 10, 200);
+				if(buttonBuilder(104, 200, 404, 477, arg1)){
+					money -= cost;
+					craigslistReport(toyotaGt);
+				}
+				
+				break;
+			case "RX7":
+				g2d.drawImage(rx7, 104, 500, 404, 777, 0, 0, 768, 576, null);
+				
+				cost = 5000;
+				odo = rand.nextInt(200000);
+				if(odo < 100000){
+				int condChance = rand.nextInt(3) + 1;
+				if(condChance == 1){
+					condition = "really good";
+				}else if(condChance == 2){
+					condition = "pretty decent";
+				}else{
+					condition = "gahbage";
+				}
+				}else if(odo > 100000){
+					int condChance = rand.nextInt(3) + 1;
+					if(condChance > 1){
+						condition = "pretty decent";
+					}else{
+						condition = "gahbage";
+					}
+				}
+				
+				if(condition.equals("gahbage")){
+					cost -= 1000;
+				}else if(condition.equals("pretty decent")){
+					cost += 1000;
+				}else{
+					cost += 2000;
+				}
+				g2d.drawString("Cost: " + cost + "             " + "Odometer: " + odo + "             " + condition, 10, 200);
+				if(buttonBuilder(104, 200, 404, 477, arg1)){
+					money -= cost;
+					craigslistReport(rx7);
+				}
+				
+				break;
+			case "MIATA":
+				g2d.drawImage(miata, 104, 500, 404, 777, 0, 0, 768, 576, null);
+				
+				cost = 5000;
+				odo = rand.nextInt(200000);
+				if(odo < 100000){
+				int condChance = rand.nextInt(3) + 1;
+				if(condChance == 1){
+					condition = "really good";
+				}else if(condChance == 2){
+					condition = "pretty decent";
+				}else{
+					condition = "gahbage";
+				}
+				}else if(odo > 100000){
+					int condChance = rand.nextInt(3) + 1;
+					if(condChance > 1){
+						condition = "pretty decent";
+					}else{
+						condition = "gahbage";
+					}
+				}
+				
+				if(condition.equals("gahbage")){
+					cost -= 1000;
+				}else if(condition.equals("pretty decent")){
+					cost += 1000;
+				}else{
+					cost += 2000;
+				}
+				g2d.drawString("Cost: " + cost + "             " + "Odometer: " + odo + "             " + condition, 10, 200);
+				if(buttonBuilder(104, 500, 404, 777, arg1)){
+					money -= cost;
+					craigslistReport(miata);
+				}
+				
+				break; 
+			case "FJ":
+				g2d.drawImage(fj, 1500, 200, 404, 477, 0, 0, 500, 150, null);
+				
+				cost = 5000;
+				odo = rand.nextInt(200000);
+				if(odo < 100000){
+				int condChance = rand.nextInt(3) + 1;
+				if(condChance == 1){
+					condition = "really good";
+				}else if(condChance == 2){
+					condition = "pretty decent";
+				}else{
+					condition = "gahbage";
+				}
+				}else if(odo > 100000){
+					int condChance = rand.nextInt(3) + 1;
+					if(condChance > 1){
+						condition = "pretty decent";
+					}else{
+						condition = "gahbage";
+					}
+				}
+				
+				if(condition.equals("gahbage")){
+					cost -= 1000;
+				}else if(condition.equals("pretty decent")){
+					cost += 1000;
+				}else{
+					cost += 2000;
+				}
+				g2d.drawString("Cost: " + cost + "             " + "Odometer: " + odo + "             " + condition, 10, 200);
+				if(buttonBuilder(104, 500, 404, 777, arg1)){
+					money -= cost;
+					craigslistReport(fj);
+				}
+				
+				break;
+			case "DATSUN510":
+				g2d.drawImage(Datsun510, 1500, 500, 404, 777, 0, 0, 2000, 700, null);
+				
+				cost = 5000;
+				odo = rand.nextInt(200000);
+				if(odo < 100000){
+				int condChance = rand.nextInt(3) + 1;
+				if(condChance == 1){
+					condition = "really good";
+				}else if(condChance == 2){
+					condition = "pretty decent";
+				}else{
+					condition = "gahbage";
+				}
+				}else if(odo > 100000){
+					int condChance = rand.nextInt(3) + 1;
+					if(condChance > 1){
+						condition = "pretty decent";
+					}else{
+						condition = "gahbage";
+					}
+				}
+				
+				if(condition.equals("gahbage")){
+					cost -= 1000;
+				}else if(condition.equals("pretty decent")){
+					cost += 1000;
+				}else{
+					cost += 2000;
+				}
+				g2d.drawString("Cost: " + cost + "             " + "Odometer: " + odo + "             " + condition, 10, 200);
+				if(buttonBuilder(104, 200, 404, 477, arg1)){
+					money -= cost;
+					craigslistReport(Datsun510);
+				}
+				
+				break;
+			case "TOYOTAGTRED":
+				g2d.drawImage(toyotaGtRED, 1500, 200, 404, 477, 0, 0, 500, 100, null);
+				
+				cost = 5000;
+				odo = rand.nextInt(200000);
+				if(odo < 100000){
+				int condChance = rand.nextInt(3) + 1;
+				if(condChance == 1){
+					condition = "really good";
+				}else if(condChance == 2){
+					condition = "pretty decent";
+				}else{
+					condition = "gahbage";
+				}
+				}else if(odo > 100000){
+					int condChance = rand.nextInt(3) + 1;
+					if(condChance > 1){
+						condition = "pretty decent";
+					}else{
+						condition = "gahbage";
+					}
+				}
+				
+				if(condition.equals("gahbage")){
+					cost -= 1000;
+				}else if(condition.equals("pretty decent")){
+					cost += 1000;
+				}else{
+					cost += 2000;
+				}
+				g2d.drawString("Cost: " + cost + "             " + "Odometer: " + odo + "             " + condition, 10, 200);
+				if(buttonBuilder(1500, 200, 404, 477, arg1)){
+					money -= cost;
+					craigslistReport(toyotaGtRED);
+				}
+				
+				break;
+			case "LANCER":
+				g2d.drawImage(lancer, 104, 500, 404, 777, 0, 0, 768, 576, null);
+				
+				cost = 5000;
+				odo = rand.nextInt(200000);
+				if(odo < 100000){
+				int condChance = rand.nextInt(3) + 1;
+				if(condChance == 1){
+					condition = "really good";
+				}else if(condChance == 2){
+					condition = "pretty decent";
+				}else{
+					condition = "gahbage";
+				}
+				}else if(odo > 100000){
+					int condChance = rand.nextInt(3) + 1;
+					if(condChance > 1){
+						condition = "pretty decent";
+					}else{
+						condition = "gahbage";
+					}
+				}
+				
+				if(condition.equals("gahbage")){
+					cost -= 1000;
+				}else if(condition.equals("pretty decent")){
+					cost += 1000;
+				}else{
+					cost += 2000;
+				}
+				g2d.drawString("Cost: " + cost + "             " + "Odometer: " + odo + "             " + condition, 10, 200);
+				if(buttonBuilder(1500, 200, 404, 477, arg1)){
+					money -= cost;
+					craigslistReport(lancer);
+				}
+				
+				break;
+			case "SOMEGOLDCAR":
+				g2d.drawImage(somegoldcar, 1500, 500, 404, 777, 0, 0, 500, 100, null);
+				
+				cost = 5000;
+				odo = rand.nextInt(200000);
+				if(odo < 100000){
+				int condChance = rand.nextInt(3) + 1;
+				if(condChance == 1){
+					condition = "really good";
+				}else if(condChance == 2){
+					condition = "pretty decent";
+				}else{
+					condition = "gahbage";
+				}
+				}else if(odo > 100000){
+					int condChance = rand.nextInt(3) + 1;
+					if(condChance > 1){
+						condition = "pretty decent";
+					}else{
+						condition = "gahbage";
+					}
+				}
+				
+				if(condition.equals("gahbage")){
+					cost -= 1000;
+				}else if(condition.equals("pretty decent")){
+					cost += 1000;
+				}else{
+					cost += 2000;
+				}
+				g2d.drawString("Cost: " + cost + "             " + "Odometer: " + odo + "             " + condition, 10, 200);
+				if(buttonBuilder(1500, 500, 404, 777, arg1)){
+					money -= cost;
+					craigslistReport(somegoldcar);
+				}
+				
+				break;
+			case "S2000":
+				g2d.drawImage(s2000,  1500, 500, 304, 777, 0, 0, 3000, 700, null);
+				
+				cost = 5000;
+				odo = rand.nextInt(200000);
+				if(odo < 100000){
+				int condChance = rand.nextInt(3) + 1;
+				if(condChance == 1){
+					condition = "really good";
+				}else if(condChance == 2){
+					condition = "pretty decent";
+				}else{
+					condition = "gahbage";
+				}
+				}else if(odo > 100000){
+					int condChance = rand.nextInt(3) + 1;
+					if(condChance > 1){
+						condition = "pretty decent";
+					}else{
+						condition = "gahbage";
+					}
+				}
+				
+				if(condition.equals("gahbage")){
+					cost -= 1000;
+				}else if(condition.equals("pretty decent")){
+					cost += 1000;
+				}else{
+					cost += 2000;
+				}
+				g2d.drawString("Cost: " + cost + "             " + "Odometer: " + odo + "             " + condition, 10, 200);
+				if(buttonBuilder(1500, 500, 304, 777, arg1)){
+					money -= cost;
+					cost = 0;
+					craigslistReport(s2000);
+				}
+				
+				break;
+			}
+		}
+		
+		end = "";
+		
 	}
-	public void craigslistButtons(Graphics2D g2d){
+		//String currentCar;
+		//Car car = new Car();
+		//currentCar = Car.carCall();
 		
-		Random rand = new Random();
-		int n = rand.nextInt(2) + 1;
-		int numCars = 2;
-		String currentCar;
-		Car car = new Car();
-		currentCar = Car.carCall();
-		
-		switch(currentCar){
+		/*switch(currentCar){
 		case "Honda Civic type R": 
 			break;
 		case "Datsun 510":
@@ -363,18 +909,16 @@ private Image civicRed, datsun, e36, fj, civicR, cClass, rx7, toyotaGt;
 		case "Toyota 2000GT":
 			break;
 		}
-		
-		
-		}
-	
-			/*switch(n){
+		   /* n = rand.nextInt(numCars) + 1;
+			switch(n){
 			case 1: 
 				g2d.drawImage(civicR, 104, 200, 404, 477, 0, 0, 128, 96, null);
 				break;
 			case 2:
 				g2d.drawImage(e36, 104, 200, 404, 477, 0, 0, 128, 85, null);
 				break;
-			
+			case 3:
+				g2d.drawImage(datsun, 104, 200, 404, 477, 0, 0, 128, 85, null);
 			}
 			
 			n = rand.nextInt(numCars) + 1;
@@ -385,42 +929,44 @@ private Image civicRed, datsun, e36, fj, civicR, cClass, rx7, toyotaGt;
 			case 2:
 				g2d.drawImage(rx7, 104, 500, 404, 777, 0, 0, 768, 576, null);
 				break;
+			case 3:
+				g2d.drawImage(miata, 104, 500, 404, 777, 0, 0, 768, 576, null);
 			
 			}
 			
 			n = rand.nextInt(numCars) + 1;
 			switch(n){
 			case 1:
-				g2d.drawImage(fj, 1500, 200, 1800, 477, 0, 0, 500, 300, null);
+				g2d.drawImage(fj, 1500, 200, 404, 477, 0, 0, 500, 150, null);
 				break;
 			case 2:
-				g2d.drawImage(toyotaGt, 1500, 200, 404, 477, 0, 0, 1000, 700, null);
+				g2d.drawImage(toyotaGtRED, 1500, 200, 404, 477, 0, 0, 500, 100, null);
 				break;
+			case 3: 
+				g2d.drawImage(lancer, 1500, 200, 404, 477, 0, 0, 2500, 400, null);
+				break; 
 			}
 			
 			n = rand.nextInt(numCars) + 1;
 			switch(n){
 			case 1:
-				g2d.drawImage(e36, 1500, 500, 1800, 777, 0, 0, 500, 300, null);
+				g2d.drawImage(somegoldcar, 1500, 500, 404, 777, 0, 0, 500, 100, null);
 				break;
 			case 2:
-				g2d.drawImage(civicR, 1500, 500, 404, 777, 0, 0, 500, 300, null);
+				g2d.drawImage(s2000, 1500, 500, 304, 777, 0, 0, 3000, 700, null);
+				break;
+			case 3:
+				g2d.drawImage(Datsun510, 1500, 500, 404, 777, 0, 0, 2000, 700, null);
 				break;
 			}
 			
-			/*while(true){
-				if(buttonBuilder(1730, 900, 1902, 1092, arg1)){
-					craigslistButtons(g2d);
-					break;
-				}
-			}*/
-	}
-	
-	public void car(){
+			
+}*/
+	/*public void car(){
 	int odo, cond, price; 
 	String title;
 	boolean problem = false;
-	}
+	}*/
 	
 	public void garageScreen(Graphics2D g2d){
 		g2d.setColor(Color.WHITE);
@@ -430,6 +976,16 @@ private Image civicRed, datsun, e36, fj, civicR, cClass, rx7, toyotaGt;
 		g2d.drawImage(statBar, 0, 30, 1920, 80, 0, 0, 240, 60, null);
 		g2d.drawImage(backButton, 1730, -25, 1902, 132, 0, 0, 192, 192, null);
 		g2d.drawString("$" + String.valueOf(money), 30, 60);
+		
+		
+		for(int i = 0; i < owned.length; i++){
+			if(owned[i] == civicR){
+			g2d.drawImage(civicR, 104, 200, 404, 477, 0, 0, 128, 96, null);
+			}
+			else{
+				g2d.drawImage(civicR, 104, 200, 404, 477, 0, 0, 128, 96, null);
+			}
+		}
 	}
 	
 	public void statsScreen(Graphics2D g2d){
